@@ -5,14 +5,14 @@ let apiUrl =
 
 // Setup event listenr to run our code once the document is ready
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize and add the map
+  // Initialize and add the google map
   let map;
 
   async function initMap() {
-    // The location of Uluru
+    // The location of Salt Lake City
     const position = { lat: 40.76066778224577, lng: -111.89874212184233 };
-    // Request needed libraries.
 
+    // Request needed libraries.
     const { Map } = await google.maps.importLibrary('maps');
     const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
 
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then((response) => response.json())
       .then((data) => {
         data.ac.forEach((flight) => {
+          //  Filter out flights that are undefined
           if (typeof flight.flight != 'undefined') {
             // Custom image for each flight
             const planeImg = document.createElement('img');
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
               content: planeImg,
             });
 
+            // Do some checks to change undefined values to N/A so things looke better
             let reg = flight.r;
             if (typeof flight.r === 'undefined') {
               reg = 'N/A';
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
               alt = flight.alt_baro;
             }
 
+            // Create the content string for the info window
             const contentString = `
           <h1>Flight: ${flight.flight} Details</h1>
           <p>
@@ -77,11 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
           Altitude: ${alt}
           </p>
           `;
+
+            // Create the info window
             const infowindow = new google.maps.InfoWindow({
               content: contentString,
               ariaLabel: `Flight: ${flight.flight}`,
             });
 
+            // Add a listener to the marker so when it is clicked it opens the info window
             marker.addListener('gmp-click', () => {
               infowindow.open({
                 anchor: marker,
@@ -91,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
+        // Update the flight count
         document.getElementById(
           'flightCount'
         ).innerText = `There are ${data.ac.length} flights around Salt Lake City, UT.`;

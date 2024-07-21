@@ -5,18 +5,18 @@ This is a simple web application that allows users to see flights in a specific 
 I want to make a application that made use of a open API that allows users to see flights in a specific city.
 
 [Software Demo Video](http://youtube.link.goes.here)
+[Live Demo](https://taggmcd.github.io/flight-tracker/)
 
 # Development Environment
 
-# Useful Websites
+VScode was used to develop this project.
 
-{Make a list of websites that you found helpful in this project}
+# Useful Websites
 
 - [Airplanes.live](https://airplanes.live/)
 - [Google Maps Documentation](https://developers.google.com/maps/documentation)
 
 # Future Work
 
-- Item 1
-- Item 2
-- Item 3
+- Add fields ot let users search for flights by aircraft type, aircraft year, etc.
+- Add a feature to see flights in additional cities.
